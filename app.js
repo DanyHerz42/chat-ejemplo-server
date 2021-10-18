@@ -35,7 +35,7 @@ const socketIo = require('socket.io');
 //instanciacion y configuracion de Socket.Io con cors **Importante agregar CORS aqui, de lo contrario no funciona
 const io = socketIo(servidor, {
   cors: {
-    origin: "http://localhost:8000",
+    origin: "*",
     methods: ["GET", "POST"]
   }
 });
