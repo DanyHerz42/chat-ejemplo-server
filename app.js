@@ -4,19 +4,26 @@ const app = express();
 const http = require('http');
 const cors = require('cors');
 const morgan = require('morgan')
-require('./database')
+const path = require('path');
+const {config} = require('./config')
 
 //configuracion de cors en express
 app.use(cors())
 app.options("*", cors())
 app.use(express.json());
 app.use(morgan('dev'))
+app.use(express.urlencoded({extended: false}))
+app.use("/uploads", express.static(path.join(__dirname, "/uploads")))
 
+app.get("/", (req, res) => {
+  res.send("CHAT SERVER")
+})
 
 //rutas
 const messages = require('./routes/mensajes.routes');
-app.use("/mensajes", messages)
-
+const prueba = require('./routes/example.routes')
+app.use("/mensajes", messages);
+app.use("/prueba", prueba);
 
 
 //crear un server de Node nativo pasando como parametro el server de Express
@@ -41,6 +48,6 @@ module.exports = io;
 require('./sockets.main')
 
 //servidor en escucha
-servidor.listen(3001, () => {
-  console.log(`Server on port 3001`);
+servidor.listen(config.server_port, () => {
+  console.log(`Server on port ${config.server_port}`);
 })

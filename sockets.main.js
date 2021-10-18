@@ -1,16 +1,11 @@
 const io = require('./app');
-const {Mensaje} = require('./models')
+const query = require('./database');
 
 //esta linea abre la coneccion y recibe el socket para conectarnos
 io.on("connection", (socket) => {
    //este socket esta a la escucha, cuando llegan mensajes los guarda en la bd y por ultimo los envia
   socket.on("mensaje", async ({to, from, mensaje}) => {
-    const newMessage = new Mensaje({
-      to,
-      from,
-      message: mensaje
-    })
-    const messageSaved = await newMessage.save();
+    
     io.emit('mensajes', {to, from, message: mensaje})
   })
 
