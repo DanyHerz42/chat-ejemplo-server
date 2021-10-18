@@ -6,7 +6,7 @@ io.on("connection", (socket) => {
    //este socket esta a la escucha, cuando llegan mensajes los guarda en la bd y por ultimo los envia
   socket.on("conectado", async (mensaje) => {
     
-    io.emit('mensajes', mensaje)
+    io.emit('conectado', mensaje)
   })
 
   //Este socket escucha si un cliente se desconecta
