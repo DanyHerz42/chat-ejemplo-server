@@ -9,8 +9,8 @@ io.on("connection", (socket) => {
     io.emit('conectado', mensaje)
   })
   socket.on("conectado", ({to, from, body}) => {
-    io.emit(to, body);
-    // io.emit(from, body);
+    // io.emit(to, body);
+    io.emit(from, socket.id);
   })
   //Este socket escucha si un cliente se desconecta
   socket.on("disconnect", () => {
